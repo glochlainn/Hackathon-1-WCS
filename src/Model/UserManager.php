@@ -18,7 +18,7 @@ class UserManager extends AbstractManager
         $statement->execute();
         return $statement->fetch();
     }
-  
+
     public function selectOneByUsername(string $login)
     {
         $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE username=:login");
