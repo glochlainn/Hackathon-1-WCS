@@ -18,4 +18,15 @@ class MessageManager extends AbstractManager
         $statement->execute();
         return $statement->fetchAll();
     }
+
+    public function selectByUserId(int $idUser)
+    {
+        $query = "SELECT * FROM " . self::TABLE . " INNER JOIN user ON "
+        . self::TABLE . ".user_id=user.id WHERE user_id=:id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $idUser, \PDO::PARAM_INT);
+
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }
