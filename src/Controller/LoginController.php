@@ -37,7 +37,6 @@ class LoginController extends AbstractController
                 }
             }
         }
-        var_dump($_SESSION);
         return $this->twig->render('Login/connection.html.twig');
     }
 
