@@ -22,7 +22,7 @@ class MessageManager extends AbstractManager
 
         $statement->execute();
     }
-  
+
     public function selectAllMessageUsers(string $orderBy = '', string $direction = 'ASC'): array
     {
         $query = "SELECT * FROM " . self::TABLE . " INNER JOIN user ON "
@@ -34,6 +34,5 @@ class MessageManager extends AbstractManager
 
         $statement->execute();
         return $statement->fetchAll();
-
     }
 }
