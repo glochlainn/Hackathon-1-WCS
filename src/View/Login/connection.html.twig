@@ -10,15 +10,20 @@
                 <li>{{ error }}</li>
             {%- endfor -%}
         </ul>
-        <form method="POST" class="mb-5" action="#" novalidate>
+        <form method="POST" class="mb-5" novalidate>
             <fieldset>
-            <div class="mb-3">
-                <label for="login" class="form-label">Login</label>
-                <input type="text" class="form-control" id="login" 
-                    name="login" placeholder="username" value="{{ advertisement.lift }}" required>
-            </div>
-            <button class="btn">Log in</button>
-            <a class="mx-2 btn" href="/home/index">Back</a>
+                <div class="mb-3">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" class="form-control" id="login" 
+                        name="login" aria-describedby="loginHelpBlock" placeholder="Username" required>
+                    {% if login is not empty %}
+                        <small id="loginHelpBlock" class="form-text text-muted">
+                            There's no {{ login }} on Mars. Be free to sign up !
+                        </small>
+                    {% endif %}
+                </div>
+                <button class="btn">Log in</button>
+                <a class="mx-2 btn" href="/home/index">Back</a>
             </fieldset>
         </form>
     </main>
