@@ -2,4 +2,24 @@
 
 {% block content %}
     <h1>Hello Wilder !</h1>
+    <div class="text-danger">Quoi de neuf sur Mars ?</div>
+{{ dump(messages) }}
+    <div class="container">
+        <div class="raw d-flex">
+         <div class="col-10 justify-content-center">
+            {% for message in messages %}
+
+                <div class="col-12 text-center rounded border border-warning">
+                    <div class="col-12">
+                        {{ message.username }} 
+                    </div>
+                    <div class="col-12">
+                        {{ message.content }}
+                    </div>
+                </div>
+               
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
