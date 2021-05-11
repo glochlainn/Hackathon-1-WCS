@@ -9,6 +9,8 @@
 
 namespace App\Controller;
 
+use App\Model\CertifiedManager;
+
 class HomeController extends AbstractController
 {
     /**
