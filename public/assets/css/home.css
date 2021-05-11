@@ -1,0 +1,40 @@
+@import url('style.css');
+
+.card-tweet {
+    border: var(--secondary-color) 2px solid;
+    border-radius: 30px;
+}
+
+.tweet-header .profile-pic {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.content {
+    color: var(--light-color);
+}
+
+.username {
+    font-size: 20px;
+}
+
+.certified {
+    width: 20px;
+}
+
+.fa-heart {
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.fa-heart:hover {
+    font-weight: 900;
+}
+
+.likes-count {
+    color: var(--secondary-color);
+    font-size: 15px;
+    margin-top: 3px;
+    font-weight: 600;
+}
