@@ -7,7 +7,7 @@
 .nav-link {
     color: var(--light-color);
     font-style: italic;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 18px;
 }
 
@@ -28,4 +28,8 @@
 
 .btn-search:hover {
     color: var(--light-color);
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
 }
