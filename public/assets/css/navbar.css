@@ -1,0 +1,35 @@
+@import url('style.css');
+
+.navbar {
+    background-color: var(--secondary-color) !important;
+}
+
+.nav-link {
+    color: var(--light-color);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.search-form, .btn-search, .form-control {
+    background-color: var(--primary-color);
+    border: var(--primary-color) solid 1px;
+    color: var(--secondary-color);
+    border-radius: 16px;
+}
+
+.form-control:focus {
+    background-color: var(--primary-color);
+    border: var(--primary-color) solid 1px;
+    color: var(--secondary-color);
+    border-radius: 16px;
+    box-shadow: none;
+}
+
+.btn-search:hover {
+    color: var(--light-color);
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
