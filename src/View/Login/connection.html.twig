@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <main class="container">
+        <h2 class="pb-2 text-center">
+            Log into your account
+        </h2>
+        <ul class="alert alert-danger list-unstyled empty">
+            {%- for error in errors -%}
+                <li>{{ error }}</li>
+            {%- endfor -%}
+        </ul>
+        <form method="POST" class="mb-5" action="#" novalidate>
+            <fieldset>
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" 
+                    name="login" placeholder="username" value="{{ advertisement.lift }}" required>
+            </div>
+            <button class="btn">Log in</button>
+            <a class="mx-2 btn" href="/home/index">Back</a>
+            </fieldset>
+        </form>
+    </main>
+{% endblock %}
