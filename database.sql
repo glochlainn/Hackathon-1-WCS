@@ -37,6 +37,13 @@ CREATE TABLE message (
     )
 );
 
+ALTER TABLE message ADD likescounter INT;
+
+INSERT INTO message (content, likescounter, user_id) VALUES
+('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 46, 5),
+('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 27, 3),
+('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 14, 9);
+
 CREATE TABLE photo (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),

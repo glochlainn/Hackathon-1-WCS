@@ -1,5 +1,37 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheet %}
+	<link rel="stylesheet" href="/assets/css/home.css">
+{% endblock %}
+
 {% block content %}
-    <h1>Hello Wilder !</h1>
+	<div class="container mt-4">
+		<div class="raw d-flex">
+			<div class="col-12 justify-content-center">
+
+				{% for message in messages %}
+
+					<div class="card-tweet col-12 px-4 py-4 mb-2">
+						<div class="tweet-header col-12 d-flex flex-row align-items-center">
+							<img class="rounded-circle me-3 profile-pic" src="/../uploads/{{ message.profile_picture }}" alt="profile-picture">
+                            <div class="d-flex flex-row align-items-center">
+                                <p class="fw-bolder content username mb-0 me-2">{{ message.username }}</p>
+                                {% if message.certified == true %}
+                                    <img class="certified" src="/../uploads/certified.png" alt="">
+                                {% endif %}
+                            </div>
+						</div>
+						<div class="col-12 px-5 ms-5">
+							<p class="lead content">{{ message.content }}</p>
+							<div class="d-flex flex-row align-items-center">
+								<i class="far fa-heart me-2"></i>
+                                <p class="likes-count mb-0">{{ message.likescounter }}</p>
+							</div>
+						</div>
+					</div>
+
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

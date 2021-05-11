@@ -9,6 +9,8 @@
 
 namespace App\Controller;
 
+use App\Model\MessageManager;
+
 class HomeController extends AbstractController
 {
     /**
@@ -21,6 +23,9 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        $messageManager = new MessageManager();
+        $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
+
+        return $this->twig->render('Home/index.html.twig', ['messages' => $messages]);
     }
 }
