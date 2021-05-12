@@ -36,6 +36,14 @@ class MessageManager extends AbstractManager
         return $statement->fetchAll();
     }
 
+    public function updatePhoto(int $photoId, int $idMessage): void
+    {
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET photo_id=:photo_id WHERE id= " . $idMessage);
+        $statement->bindValue('photo_id', $photoId, \PDO::PARAM_INT);
+
+        $statement->execute();
+    }
+
     public function selectByUserId(int $idUser)
     {
         $query = "SELECT * FROM " . self::TABLE . " INNER JOIN user ON "
