@@ -31,6 +31,7 @@ class LoginController extends AbstractController
                 $user = $userManager->selectOneByUsername($login);
 
                 if ($user && $user['username'] === $login) {
+                    $_SESSION['id'] = $user['id'];
                     $_SESSION['login'] = $user['username'];
                     $_SESSION['profile_picture'] = $user['profile_picture'];
                     $_SESSION['profile_certified'] = $user['profile_certified'];
@@ -61,5 +62,7 @@ class LoginController extends AbstractController
     public function disconnection()
     {
         session_unset();
+
+        return $this->twig->render('Home/index.html.twig');
     }
 }
