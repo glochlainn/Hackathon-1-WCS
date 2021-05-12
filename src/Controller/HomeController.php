@@ -100,7 +100,7 @@ class HomeController extends AbstractController
 
                 $uploaded = array();
                 $failed = array();
-                $allowed = array('jpg', 'png', 'webp', 'gif');
+                $allowed = array('jpg', 'png', 'webp', 'gif', 'jpeg');
 
                 foreach ($files['name'] as $position => $fileName) {
                     $fileTemp = $files['tmp_name'][$position];

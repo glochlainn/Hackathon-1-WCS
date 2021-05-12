@@ -4,7 +4,8 @@
 	<link rel="stylesheet" href="/assets/css/home.css">
 {% endblock %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home
+{% endblock %}
 
 {% block marser_block %}
 	{% include "Components/_marser.html.twig" %}
@@ -16,7 +17,7 @@
 		<div class="raw d-flex px-5">
 			<div class="col-12 justify-content-center">
 
-			<h1 class="tweets-from">Home</h1>
+				<h1 class="tweets-from">Home</h1>
 
 				{% include "Components/_marser.html.twig" %}
 
@@ -37,8 +38,12 @@
 							<div class="pe-5">
 								<p class="lead content">{{ message.content }}</p>
 								{% if message.photo_id is not empty %}
-									<img
-									class="mb-3 tweet-img" id="myImg" src="/../uploads/{{ message.name }}" alt="{{ message.name }}">
+									{% if message.name is not null and message.url is null %}
+										<img class="mb-3 tweet-img" id="myImg" src="/../uploads/{{ message.url }}" alt="{{ message.name }}">
+									{% endif %}
+									{% if message.url is not null %}
+										<img class="mb-3 tweet-img" id="myImg" src="{{ message.url }}" alt="{{ message.name }}">
+									{% endif %}
 									<!-- The Modal -->
 									<div id="myModal" class="modal">
 										<span class="close">&times;</span>
