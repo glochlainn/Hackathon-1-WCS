@@ -23,7 +23,7 @@ class MessageManager extends AbstractManager
 
     public function selectAllMessageUsers(string $orderBy = '', string $direction = 'ASC'): array
     {
-        $query = "SELECT * FROM " . self::TABLE . " LEFT JOIN user ON "
+        $query = "SELECT *, message.id as id_message FROM " . self::TABLE . " LEFT JOIN user ON "
             . self::TABLE . ".user_id=user.id LEFT JOIN photo ON " . self::TABLE . ".photo_id=photo.id";
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
