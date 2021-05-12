@@ -17,10 +17,14 @@
         <div class="raw d-flex">
             <div class="col-12 justify-content-center">
                 <div class="formmarser">
-                    <form action="" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data" >
                         <label for="message" class="form-label"></label>
-                        <textarea class="form-control" id="message" name="message" placeholder="Quoi de neuf sur Mars ?" rows="3">{{ data.message }}</textarea>
+                        <textarea class="form-control" id="message" name="content" placeholder="Quoi de neuf sur Mars ?" rows="3">{{ data.message }}</textarea>
                         <div class="d-flex justify-content-center mb-1">
+                        <div>
+                            <label for="imageUpload">Upload an profile image : </label>    
+                            <input type="file" name="files[]" id="imageUpload" multiple>
+                        </div>
                         <button class="button">Envoyer</button>
                         </div>
                     </div>

@@ -24,6 +24,9 @@ class HomeController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
+
+    private const TEXTLENGTH = 280;
+
     public function index()
     {
         $messageManager = new MessageManager();
@@ -64,7 +67,9 @@ class HomeController extends AbstractController
             'error' => $error
         ]);
     }
-    private const TEXTLENGTH = 280;
+
+
+
     public function marser()
     {
         $message = '';
@@ -79,6 +84,8 @@ class HomeController extends AbstractController
             }
             $errors = array_merge($errors, $this->validate($data));
             if (empty($errors)) {
+                //$messageManager = new MessageManager();
+                //$userMessages = $messageManager->insert($data);
                 $message = 'Votre message a bien été envoyé';
                 $data = null;
             }
@@ -91,6 +98,7 @@ class HomeController extends AbstractController
         ];
         return $marser;
     }
+
     private function validate(array $data): array
     {
         $errors = [];
