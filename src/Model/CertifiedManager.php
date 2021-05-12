@@ -5,7 +5,7 @@ namespace App\Model;
 use App\Model\RequestManager;
 use DateTime;
 
-class CertifiedManager extends AbstractManager
+/*class CertifiedManager extends AbstractManager
 {
     public const USER_TABLE = 'user';
     public const PHOTO_TABLE = 'photo';
@@ -61,7 +61,7 @@ class CertifiedManager extends AbstractManager
 
         if ($present === 0) {
             //insérer l'image en BDD
-            $statement = $this->pdo->prepare("INSERT INTO " . self::PHOTO_TABLE . " (`name`, `url`, `user_id`) 
+            $statement = $this->pdo->prepare("INSERT INTO " . self::PHOTO_TABLE . " (`name`, `url`, `user_id`)
             VALUES (:name, :url, :user_id)");
             $statement->bindValue('name', $apod['title'], \PDO::PARAM_STR);
             $statement->bindValue('url', $apod['url'], \PDO::PARAM_STR);
@@ -71,7 +71,7 @@ class CertifiedManager extends AbstractManager
         }
 
         //récuperer le photo_id
-        $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " 
+        $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . "
         WHERE user_id=:user_id AND name=:name");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->bindValue('name', $apod['title'], \PDO::PARAM_STR);
@@ -94,7 +94,7 @@ class CertifiedManager extends AbstractManager
             //insérer le message en BDD
             $statement = $this->pdo->prepare("INSERT INTO " . self::MESSAGE_TABLE . " (
             `content`, `post_date`, `user_id`, `photo_id`
-            ) 
+            )
             VALUES (:content, :post_date, :user_id, :photo_id)");
             $statement->bindValue('content', $apod['explanation'], \PDO::PARAM_STR);
             $statement->bindValue('post_date', $apodDate, \PDO::PARAM_STR);
@@ -166,7 +166,7 @@ class CertifiedManager extends AbstractManager
 
         for ($i = 0; $i < $rocketNumbers; $i++) {
             if (empty($photo)) {
-                $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " 
+                $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . "
                 WHERE user_id=:user_id AND name=:name");
                 $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
                 $statement->bindValue('name', $spacex[$i]['name'], \PDO::PARAM_STR);
@@ -205,4 +205,4 @@ class CertifiedManager extends AbstractManager
             }
         }
     }
-}
+}*/
