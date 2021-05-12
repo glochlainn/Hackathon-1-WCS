@@ -61,7 +61,8 @@ class HomeController extends AbstractController
         return $this->twig->render('Home/show.html.twig', [
             'userMessages' => $userMessages,
             'user' => $user,
-            'error' => $error
+            'error' => $error,
+            'SESSION' => $_SESSION
         ]);
     }
 

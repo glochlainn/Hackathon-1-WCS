@@ -1,5 +1,5 @@
 @import url('style.css');
-.tweets-from {
+h1 {
     color: var(--secondary-color);
     font-family: var(--title-font);
     text-transform: uppercase;
@@ -53,7 +53,6 @@
 .likes-count {
     color: var(--secondary-color);
     font-size: 15px;
-    margin-top: 3px;
     font-weight: 600;
 }
 
