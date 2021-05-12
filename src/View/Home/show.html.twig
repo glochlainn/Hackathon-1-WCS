@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h2>Les messages de {{ user.username }}</h2>
+
+    {% for userMessage in userMessages %}
+        {{ userMessage.content }}
+    {% endfor %}
+{% endblock %}
