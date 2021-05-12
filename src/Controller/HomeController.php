@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Model\MessageManager;
+use App\Model\UserManager;
 
 class HomeController extends AbstractController
 {
@@ -27,5 +28,31 @@ class HomeController extends AbstractController
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
 
         return $this->twig->render('Home/index.html.twig', ['messages' => $messages]);
+    }
+
+    public function show()
+    {
+        $error = "";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = array_map('trim', $_POST);
+        }
+
+        if (!empty($name)) {
+            $userManager = new UserManager();
+            $user = $userManager->selectByUsername($name['username']);
+
+            $messageManager = new MessageManager();
+            $userMessages = $messageManager->selectByUserId($user['id']);
+        } else {
+            $error = "The user don't exist";
+            $userMessages = null;
+            $user = null;
+        }
+
+        return $this->twig->render('Home/show.html.twig', [
+            'userMessages' => $userMessages,
+            'user' => $user,
+            'error' => $error
+        ]);
     }
 }

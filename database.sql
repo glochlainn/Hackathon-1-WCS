@@ -44,7 +44,8 @@ INSERT INTO message (content, likescounter, post_date, user_id) VALUES
 ('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 46, '2021-05-11 22:21:20', 5),
 ('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 27, '2021-05-11 22:33:20', 3),
 ('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 14, '2021-05-11 22:46:20', 9),
-('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 376, '2021-05-12 01:21:20', 17);
+('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 376, '2021-05-12 01:21:20', 17),
+('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rutrum lorem, scelerisque vehicula lorem. Donec metus lorem, egestas ut tincidunt vitae, tempor vitae ex. Duis est ipsum, blandit vitae felis pellentesque, pellentesque ultrices felis viverra.', 234, '2021-05-12 02:21:20', 17);
 
 CREATE TABLE photo (
     id INT NOT NULL AUTO_INCREMENT,
