@@ -42,7 +42,6 @@ class CertifiedManager extends AbstractManager
         $statement = $this->pdo->prepare("SELECT id FROM " . static::USER_TABLE . " WHERE username=:username");
         $statement->bindValue('username', $username, \PDO::PARAM_STR);
         $statement->execute();
-
         $userId = $statement->fetch();
         //Si $apod[title] n'existe pas en table photo
         $statement = $this->pdo->prepare("SELECT name FROM " . static::PHOTO_TABLE . " WHERE user_id=:user_id");
@@ -50,7 +49,6 @@ class CertifiedManager extends AbstractManager
         $statement->execute();
 
         $title = $statement->fetchAll();
-
         $titleNumbers = count($title);
 
         for ($i = 0; $i < $titleNumbers; $i++) {
@@ -78,16 +76,17 @@ class CertifiedManager extends AbstractManager
         $statement->execute();
 
         $photoId = $statement->fetch();
-
         //Si $apod[title] n'existe pas en table message
         $statement = $this->pdo->prepare("SELECT photo_id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
 
         $photo = $statement->fetchAll();
-
-        if ($photo != false) {
-            $messagePresent = in_array($photoId['id'], $photo);
+        $photoNumbers = count($photo);
+        for ($i = 0; $i < $photoNumbers; $i++) {
+            if ($photoId['id'] === $photo[$i]['photo_id']) {
+                $messagePresent = 1;
+            }
         }
 
         if ($messagePresent === 0) {
@@ -159,10 +158,6 @@ class CertifiedManager extends AbstractManager
         $statement->execute();
         $photo = $statement->fetchAll();
         $photoNumbers = count($photo);
-        var_dump($userId);
-        var_dump($photoId);
-        var_dump($photo);
-        var_dump($photoNumbers);
 
         for ($i = 0; $i < $rocketNumbers; $i++) {
             if (empty($photo)) {
