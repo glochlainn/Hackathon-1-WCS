@@ -104,14 +104,14 @@ class CertifiedManager extends AbstractManager
             $statement->execute();
         }
 
-        $statement = $this->pdo->prepare("SELECT id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id, photo_id=:photo_id");
+        $statement = $this->pdo->prepare(
+            "SELECT id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id, photo_id=:photo_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->bindValue('photo_id', $photoId['id'], \PDO::PARAM_INT);
         $statement->execute();
         $message_id = $statement->fetch();
-        
+
         $updatePhoto = new MessageManager();
         $updatePhoto = $updatePhoto->updatePhoto($photoId['id'], $message_id['id']);
-
     }
 }
