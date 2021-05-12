@@ -95,41 +95,33 @@ class CertifiedManager extends AbstractManager
     {
         $username = "spacex";
         $spacexPresent = 0;
-        $spacexMessagePresent = 0;
         $date = new DateTime('now');
         $date = $date->format("Y-m-d H:i:s");
-
-        //récupérer les données de l'API
         $requestManager = new RequestManager();
         $spacex = [];
-
         $pathToApi = "https://api.spacexdata.com/v4/rockets";
-
         $spacex = $requestManager->request($pathToApi);
-
-        //récuperer l'user user_id
         $statement = $this->pdo->prepare("SELECT id FROM " . static::USER_TABLE . " WHERE username=:username");
         $statement->bindValue('username', $username, \PDO::PARAM_STR);
         $statement->execute();
 
         $userId = $statement->fetch();
 
-        //Si $spacex['id']['name'] n'existe pas en table photo
         $statement = $this->pdo->prepare("SELECT name FROM " . static::PHOTO_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
 
         $title = $statement->fetch();
+        $rocketNumbers = count($spacex);
 
         if ($title != false) {
-            for ($i = 0; $i < count($spacex); $i++) {
+            for ($i = 0; $i < $rocketNumbers; $i++) {
                 $spacexPresent = in_array($spacex[$i]['name'], $title);
             }
         }
 
-        for ($i = 0; $i < count($spacex); $i++) {
+        for ($i = 0; $i < $rocketNumbers; $i++) {
             if ($spacexPresent === 0) {
-                //insérer l'image en BDD
                 $statement = $this->pdo->prepare("INSERT INTO " . self::PHOTO_TABLE . "
                 (`name`, `url`, `user_id`)
                 VALUES (:name, :url, :user_id)");
@@ -141,23 +133,19 @@ class CertifiedManager extends AbstractManager
             }
         }
 
-        //récuperer le photo_id
         $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_STR);
         $statement->execute();
 
         $photoId = $statement->fetchAll(\PDO::FETCH_ASSOC);
-        var_dump($photoId);
 
-        //Si $spacex[name] n'existe pas en table message
         $statement = $this->pdo->prepare("SELECT photo_id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
 
         $photo = $statement->fetch();
-        var_dump($photo);
 
-        for ($i = 0; $i < count($spacex); $i++) {
+        for ($i = 0; $i < $rocketNumbers; $i++) {
             if ($photo === false) {
                 $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " 
                 WHERE user_id=:user_id AND name=:name");
