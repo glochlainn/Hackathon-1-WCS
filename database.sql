@@ -24,7 +24,9 @@ INSERT INTO user (username, profile_picture, profile_certified) VALUES
 ('Geth', 'geth.jpeg', 0),
 ('Robot', 'robot.jpeg', 0),
 ('O-Mars-y', 'o-mars-y.jpeg', 0),
-('Matt Damon', 'matt_damon.jpg', 1);
+('Matt Damon', 'matt_damon.jpg', 1),
+('APOD', 'apod.png', 1),
+('spaceX', 'spacex.png', 1);
 
 CREATE TABLE message (
     id INT NOT NULL AUTO_INCREMENT,
