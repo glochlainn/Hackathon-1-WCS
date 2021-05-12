@@ -114,26 +114,23 @@ class CertifiedManager extends AbstractManager
         $requestManager = new RequestManager();
         $spacex = [];
         $spacexDate = $this->randomDate();
-
         $pathToApi = "https://api.spacexdata.com/v4/rockets";
         $spacex = $requestManager->request($pathToApi);
         $statement = $this->pdo->prepare("SELECT id FROM " . static::USER_TABLE . " WHERE username=:username");
         $statement->bindValue('username', $username, \PDO::PARAM_STR);
         $statement->execute();
-
         $userId = $statement->fetch();
 
         $statement = $this->pdo->prepare("SELECT name FROM " . static::PHOTO_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
-
         $title = $statement->fetchAll();
         $rocketNumbers = count($spacex);
         $titleNumbersSpacex = count($title);
 
         for ($i = 0; $i < $rocketNumbers; $i++) {
             for ($y = 0; $y < $titleNumbersSpacex; $y++) {
-                if ($title[$y] != $spacex[$i]['name']) {
+                if ($title[$y]['name'] == $spacex[$i]['name']) {
                     $spacexPresent = 1;
                 }
             }
@@ -162,9 +159,13 @@ class CertifiedManager extends AbstractManager
         $statement->execute();
         $photo = $statement->fetchAll();
         $photoNumbers = count($photo);
+        var_dump($userId);
+        var_dump($photoId);
+        var_dump($photo);
+        var_dump($photoNumbers);
 
         for ($i = 0; $i < $rocketNumbers; $i++) {
-            if ($photo === false) {
+            if (empty($photo)) {
                 $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " 
                 WHERE user_id=:user_id AND name=:name");
                 $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);

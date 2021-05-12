@@ -12,11 +12,8 @@ namespace App\Controller;
 use Amp\Success;
 use App\Model\MessageManager;
 use App\Model\UserManager;
-<<<<<<< HEAD
 use App\Model\CertifiedManager;
-=======
 use App\Model\UserMessageManager;
->>>>>>> c27e9fb319c7656b3ca56dcd92bef58c8ecec9b1
 
 class HomeController extends AbstractController
 {
@@ -39,9 +36,8 @@ class HomeController extends AbstractController
         $marser = $this->marser();
 
         return $this->twig->render('Home/index.html.twig', [
-            'messages' => $messages,
             'apod' => $apod,
-            'spacex' => $spacex
+            'spacex' => $spacex,
             'messages' => $messages,
             'success' => $marser['success'],
             'data' => $marser['data'],
