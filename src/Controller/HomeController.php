@@ -87,7 +87,7 @@ class HomeController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
 
-
+            var_dump($data);
             if (empty($data['content'])) {
                 $errors[] = 'Un message est obligatoire';
             }
