@@ -105,7 +105,7 @@ class CertifiedManager extends AbstractManager
         }
 
         $statement = $this->pdo->prepare(
-            "SELECT id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id, photo_id=:photo_id");
+            "SELECT id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id AND photo_id=:photo_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->bindValue('photo_id', $photoId['id'], \PDO::PARAM_INT);
         $statement->execute();
