@@ -47,4 +47,5 @@
 
     .form-tweet {
         color: var(--light-color) !important;
+        margin-top: -25px;
     }
