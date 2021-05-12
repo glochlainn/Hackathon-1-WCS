@@ -6,7 +6,7 @@ class MessageManager extends AbstractManager
 {
     public const TABLE = 'message';
 
-    public function insert(array $message, $photoId = null)
+    public function insert(array $message, $photoId)
     {
         $date = date('Y-m-d H:i:s');
         $query = "INSERT INTO " . self::TABLE . " (`content`, `post_date`, `user_id`, `photo_id`)

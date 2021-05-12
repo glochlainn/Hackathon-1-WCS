@@ -85,7 +85,6 @@ class HomeController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
 
-
             if (empty($data['content'])) {
                 $errors[] = 'Un message est obligatoire';
             }
@@ -134,13 +133,17 @@ class HomeController extends AbstractController
                     print_r($failed);
                 }
             }
-            $idPhoto = "";
+
+
+            if (empty($idPhoto))
+            {
+
+            } else
             if (empty($errors)) {
                 if (!empty($fileNameNew && !empty($_SESSION['id']))) {
                     $photoManager = new PhotoManager();
                     $idPhoto = $photoManager->insert($fileNameNew, $_SESSION['id']);
                 }
-
                 $messageManager = new MessageManager();
                 $userMessages = $messageManager->insert($data, $idPhoto);
 
