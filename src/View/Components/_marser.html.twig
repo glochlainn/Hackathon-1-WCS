@@ -1,34 +1,32 @@
 {% block stylesheet %}
-    <link rel="stylesheet" href="/assets/css/marser.css">
+	<link rel="stylesheet" href="/assets/css/marser.css">
 {% endblock %}
+
 {% block marser_block %}
-    {% if errors %}
-        <ul class="alert alert-danger error">
-            {% for error in errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% elseif errors is empty and data is null %}
-        <p class="alert alert-success validated">
-            {{ success }}
-        </p>
-    {% endif %}
-    <div class="container mt-4">
-        <div class="raw d-flex">
-            <div class="col-12 justify-content-center">
-                <div class="formmarser">
-                    <form action="" method="POST" enctype="multipart/form-data" >
-                        <label for="message" class="form-label"></label>
-                        <textarea class="form-control" id="message" name="content" placeholder="Quoi de neuf sur Mars ?" rows="3">{{ data.message }}</textarea>
-                        <div class="d-flex justify-content-center mb-1">
-                        <div> 
-                            <input class="button" type="file" name="files[]" id="imageUpload" multiple>
-                        </div>
-                        <button class="button">Envoyer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+	{% if errors %}
+		<ul class="alert alert-danger error">
+			{% for error in errors %}
+				<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+	{% elseif errors is empty and data is null %}
+		<p class="alert alert-success validated">
+			{{ success }}
+		</p>
+	{% endif %}
+	<div class="my-4">
+		<div class="raw d-flex">
+			<div class="col-12 justify-content-center">
+				<div class="formmarser py-3 px-3">
+					<form action="" method="POST">
+						<label for="message" class="form-label"></label>
+						<textarea class="form-control form-tweet" id="message" name="message" placeholder="Quoi de neuf sur Mars ?" rows="3">{{ data.message }}</textarea>
+						<div class="button-send text-end mb-1 mt-3">
+							<button class="button">Marser</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 {% endblock %}

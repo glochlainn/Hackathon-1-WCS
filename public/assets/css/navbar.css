@@ -34,3 +34,16 @@
 .nav-link:hover {
     color: var(--primary-color) !important;
 }
+
+.username-nav {
+    color: var(--light-color);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.pic-nav {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+}

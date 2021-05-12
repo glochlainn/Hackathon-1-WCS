@@ -12,6 +12,7 @@ namespace App\Controller;
 use Amp\Success;
 use App\Model\MessageManager;
 use App\Model\UserManager;
+use App\Model\CertifiedManager;
 use App\Model\UserMessageManager;
 use App\Model\PhotoManager;
 
@@ -30,11 +31,17 @@ class HomeController extends AbstractController
 
     public function index()
     {
+        /*$requester = new CertifiedManager();
+        $apod = $requester->apod();
+        $spacex = $requester->spacex();*/
+
         $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
         $marser = $this->marser();
 
         return $this->twig->render('Home/index.html.twig', [
+            /*'apod' => $apod,
+            'spacex' => $spacex,*/
             'messages' => $messages,
             'success' => $marser['success'],
             'data' => $marser['data'],
@@ -65,7 +72,8 @@ class HomeController extends AbstractController
         return $this->twig->render('Home/show.html.twig', [
             'userMessages' => $userMessages,
             'user' => $user,
-            'error' => $error
+            'error' => $error,
+            'SESSION' => $_SESSION
         ]);
     }
 
@@ -187,6 +195,7 @@ class HomeController extends AbstractController
                 }
             }
         }
+
         header("Location: /Home/index");
     }
 }

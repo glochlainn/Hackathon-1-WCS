@@ -1,41 +1,65 @@
 {% extends 'layout.html.twig' %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="/assets/css/home.css">
+	<link rel="stylesheet" href="/assets/css/home.css">
+{% endblock %}
+
+{% block marser_block %}
+	{% include "Components/_marser.html.twig" %}
 {% endblock %}
 
 {% block content %}
-    {% include "Components/_marser.html.twig" %}
 
-    <div class="container mt-4">
-        <div class="raw d-flex">
-            <div class="col-12 justify-content-center">
+	<div class="container mt-4 px-5">
+		<div class="raw d-flex px-5">
+			<div class="col-12 justify-content-center">
 
-                {% for message in messages %}
+			<h1 class="tweets-from">Accueil</h1>
 
-                    <div class="card-tweet col-12 px-4 py-4 mb-2">
-                        <div class="tweet-header col-12 d-flex flex-row align-items-center">
-                            <img class="rounded-circle me-3 profile-pic" src="/../uploads/{{ message.profile_picture }}" alt="profile-picture">
-                            <div class="d-flex flex-row align-items-center">
-                                <p class="fw-bolder content username mb-0 me-2">{{ message.username }}</p>
-                                {% if message.certified == true %}
-                                    <img class="certified" src="/../uploads/certified.png" alt="">
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-12 px-5 ms-5">
-                            <p class="lead content">{{ message.content }}</p>
-                            <div class="d-flex flex-row align-items-center">
-                                <a href="/home/add/{{message.message_id}}">
-                                    <i class="far fa-heart me-2"></i>
-                                </a>
-                                <p class="likes-count mb-0">{{ message.likescounter }}</p>
-                            </div>
-                        </div>
-                    </div>
+				{% include "Components/_marser.html.twig" %}
 
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+				{% for message in messages %}
+					<div class="card-tweet col-12 px-4 py-4 mb-2">
+						<div class="tweet-header col-12 d-flex flex-row align-items-center">
+							<img class="rounded-circle me-3 profile-pic" src="/../uploads/{{ message.profile_picture }}" alt="profile-picture">
+							<div class="d-flex flex-row align-items-center">
+								<p class="fw-bolder content username mb-0 me-2">{{ message.username }}</p>
+								{% if message.profile_certified == true %}
+									<img class="certified me-2" src="/../uploads/certified.png" alt="certified-logo">
+								{% endif %}
+								<p class="mb-0 post_date">•
+									{{ message.post_date|date("d/m/Y") }}</p>
+							</div>
+						</div>
+						<div class="col-12 px-5 ms-5">
+							<div class="pe-5">
+								<p class="lead content">{{ message.content }}</p>
+								{% if message.photo_id is not empty %}
+									<img
+									class="mb-3 tweet-img" id="myImg" src="/../uploads/{{ message.url }}" alt="{{ message.name }}">
+									<!-- The Modal -->
+									<div id="myModal" class="modal">
+										<span class="close">&times;</span>
+										<img class="modal-content" id="img01">
+										<div id="caption"></div>
+									</div>
+								{% endif %}
+							</div>
+							<div class="d-flex flex-row align-items-center">
+								<a href="/home/add/{{message.message_id}}">
+									<i class="far fa-star me-1"></i>
+								</a>
+								<p class="likes-count mb-0">{{ message.likescounter }}</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	<script src="/assets/js/script.js" crossorigin="anonymous"></script>
 {% endblock %}
