@@ -29,12 +29,12 @@ class HomeController extends AbstractController
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
         $marser = $this->marser();
 
-
         return $this->twig->render('Home/index.html.twig', [
             'messages' => $messages,
             'success' => $marser['success'],
             'data' => $marser['data'],
-            'errors' => $marser['errors']
+            'errors' => $marser['errors'],
+            'SESSION' => $_SESSION
         ]);
     }
 
