@@ -134,7 +134,6 @@ class CertifiedManager extends AbstractManager
                 }
             }
         }
-
         for ($i = 0; $i < $rocketNumbers; $i++) {
             if ($spacexPresent === 0) {
                 $statement = $this->pdo->prepare("INSERT INTO " . self::PHOTO_TABLE . "
