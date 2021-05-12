@@ -23,7 +23,7 @@
 									<img class="certified me-2" src="/../uploads/certified.png" alt="certified-logo">
 								{% endif %}
 								<p class="mb-0 post_date">•
-									{{ userMessage.post_date|date("d/m/Y") }}</p>
+									{{ message.post_date|date("d/m/Y • H:i") }}</p>
 							</div>
 						</div>
 						<div class="col-12 px-5 ms-5">
@@ -42,7 +42,9 @@
 								{% endif %}
 							</div>
 							<div class="d-flex flex-row align-items-center">
-								<i class="far fa-star me-1"></i>
+								<a href="/home/add/{{message.message_id}}">
+									<i class="far fa-star me-1"></i>
+								</a>
 								<p class="likes-count mb-0">{{ userMessage.likescounter }}</p>
 							</div>
 						</div>

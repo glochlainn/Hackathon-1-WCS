@@ -14,7 +14,7 @@
 		<div class="raw d-flex px-5">
 			<div class="col-12 justify-content-center">
 
-			<h1 class="tweets-from">Accueil</h1>
+			<h1 class="tweets-from">Home</h1>
 
 				{% include "Components/_marser.html.twig" %}
 
@@ -28,7 +28,7 @@
 									<img class="certified me-2" src="/../uploads/certified.png" alt="certified-logo">
 								{% endif %}
 								<p class="mb-0 post_date">•
-									{{ message.post_date|date("d/m/Y") }}</p>
+									{{ message.post_date|date("d/m/Y • H:i") }}</p>
 							</div>
 						</div>
 						<div class="col-12 px-5 ms-5">
