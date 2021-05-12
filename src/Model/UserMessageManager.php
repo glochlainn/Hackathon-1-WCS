@@ -24,7 +24,8 @@ class UserMessageManager extends AbstractManager
     public function selectOne(int $idMessage, int $idUser)
     {
         // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE message_id=:idMessage AND user_id=:idUser");
+        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE .
+        " WHERE message_id=:idMessage AND user_id=:idUser");
         $statement->bindValue('idMessage', $idMessage, \PDO::PARAM_INT);
         $statement->bindValue('idUser', $idUser, \PDO::PARAM_INT);
         $statement->execute();

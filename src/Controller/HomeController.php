@@ -13,7 +13,6 @@ use App\Model\MessageManager;
 use App\Model\UserManager;
 use App\Model\UserMessageManager;
 
-
 class HomeController extends AbstractController
 {
     /**
@@ -56,8 +55,6 @@ class HomeController extends AbstractController
                                                             'error' => $error]);
     }
 
-
-
     public function add(int $id)
     {
         $messageManager = new MessageManager();
@@ -66,20 +63,16 @@ class HomeController extends AbstractController
         $userMessageManager = new UserMessageManager();
         $userlike = $userMessageManager->selectOne($id, $_SESSION['user_id']);
 
-        if ($userlike['user_like'] == 1)
-        {
+        if ($userlike['user_like'] == 1) {
             $message["likescounter"] -= 1;
             $messageManager->updateLikescounter($id, $message["likescounter"]);
             $userMessageManager = new UserMessageManager();
             $userlike = $userMessageManager->updateUserlike($id, $message['user_id'], false);
-
         } elseif ($userlike['user_like'] == 0) {
-
             $message["likescounter"] += 1;
             $messageManager->updateLikescounter($id, $message["likescounter"]);
             $userMessageManager = new UserMessageManager();
             $userlike = $userMessageManager->updateUserlike($id, $message['user_id'], true);
-        
         }
         header("Location: /Home/index");
     }
