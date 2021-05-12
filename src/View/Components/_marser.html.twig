@@ -22,6 +22,9 @@
 						<label for="message" class="form-label"></label>
 						<textarea class="form-control form-tweet" id="message" name="message" placeholder="Quoi de neuf sur Mars ?" rows="3">{{ data.message }}</textarea>
 						<div class="button-send text-end mb-1 mt-3">
+                            <div> 
+                                <input class="button" type="file" name="files[]" id="imageUpload" multiple>
+                            </div>
 							<button class="button">Marser</button>
 						</div>
 					</div>

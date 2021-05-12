@@ -39,6 +39,7 @@ class HomeController extends AbstractController
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
         $marser = $this->marser();
 
+        
         return $this->twig->render('Home/index.html.twig', [
             /*'apod' => $apod,
             'spacex' => $spacex,*/
@@ -169,6 +170,7 @@ class HomeController extends AbstractController
 
     public function add(int $id)
     {
+        
         $messageManager = new MessageManager();
         $message = $messageManager->selectOneById($id);
 
