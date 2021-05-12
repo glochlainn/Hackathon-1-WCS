@@ -27,17 +27,17 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $requester = new CertifiedManager();
+        /*$requester = new CertifiedManager();
         $apod = $requester->apod();
-        $spacex = $requester->spacex();
+        $spacex = $requester->spacex();*/
 
         $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
         $marser = $this->marser();
 
         return $this->twig->render('Home/index.html.twig', [
-            'apod' => $apod,
-            'spacex' => $spacex,
+            /*'apod' => $apod,
+            'spacex' => $spacex,*/
             'messages' => $messages,
             'success' => $marser['success'],
             'data' => $marser['data'],
@@ -68,10 +68,13 @@ class HomeController extends AbstractController
         return $this->twig->render('Home/show.html.twig', [
             'userMessages' => $userMessages,
             'user' => $user,
-            'error' => $error
+            'error' => $error,
+            'SESSION' => $_SESSION
         ]);
     }
+
     private const TEXTLENGTH = 280;
+
     public function marser()
     {
         $message = '';
@@ -98,6 +101,7 @@ class HomeController extends AbstractController
         ];
         return $marser;
     }
+
     private function validate(array $data): array
     {
         $errors = [];
@@ -135,6 +139,7 @@ class HomeController extends AbstractController
                 }
             }
         }
+
         header("Location: /Home/index");
     }
 }

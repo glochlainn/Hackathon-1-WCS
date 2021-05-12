@@ -5,7 +5,7 @@
   --primary-color: #2C3E50;
   --secondary-color: #F39C12;
   --light-color: #F5F5F5;
-  --warning-color: #717171;
+  --dark-color: #717171;
 
   --text-font: 'Roboto', sans-serif;
   --title-font: 'Orbitron', sans-serif;
@@ -20,6 +20,10 @@ body {
   background-color: var(--primary-color);
   font-family: var(--text-font);
   scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
 }
 
 .empty:empty {

@@ -114,6 +114,9 @@ CREATE TABLE photo (
     )
 );
 
+INSERT INTO photo (name, url, user_id) VALUES
+('Earth from Space', 'earth-space.jpg', 17);
+
 ALTER TABLE message ADD CONSTRAINT fk_message_user_id FOREIGN KEY(user_id)
 REFERENCES user (id);
 

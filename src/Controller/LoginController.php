@@ -36,7 +36,7 @@ class LoginController extends AbstractController
                     $_SESSION['profile_picture'] = $user['profile_picture'];
                     $_SESSION['profile_certified'] = $user['profile_certified'];
 
-                    return $this->twig->render('Home/index.html.twig');
+                    header("Location: /Home/index");
                 }
             }
         }
@@ -63,6 +63,6 @@ class LoginController extends AbstractController
     {
         session_unset();
 
-        return $this->twig->render('Home/index.html.twig');
+        header("Location: /Home/index");
     }
 }
