@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Model\MessageManager;
 use App\Model\UserManager;
+use App\Model\CertifiedManager;
 
 class HomeController extends AbstractController
 {
@@ -24,10 +25,18 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        $requester = new CertifiedManager();
+        $apod = $requester->apod();
+        $spacex = $requester->spacex();
+
         $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
 
-        return $this->twig->render('Home/index.html.twig', ['messages' => $messages]);
+        return $this->twig->render('Home/index.html.twig', [
+        'messages' => $messages,
+        'apod' => $apod,
+        'spacex' => $spacex
+        ]);
     }
 
     public function show()
