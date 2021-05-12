@@ -52,4 +52,11 @@ class LoginController extends AbstractController
 
         return $errors;
     }
+
+    public function disconnection()
+    {
+        session_unset();
+
+        return $this->twig->render('Home/index.html.twig');
+    }
 }
