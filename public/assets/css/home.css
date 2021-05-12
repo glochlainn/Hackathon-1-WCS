@@ -23,6 +23,16 @@
     width: 20px;
 }
 
+.tweet-img {
+    width: 100%;
+    border-radius: 30px;
+}
+
+.post_date {
+    color: var(--dark-color);
+    margin-top: 3px;
+}
+
 .fa-heart {
     color: var(--secondary-color);
     cursor: pointer;

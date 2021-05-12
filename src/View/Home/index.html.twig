@@ -5,32 +5,37 @@
 {% endblock %}
 
 {% block content %}
-	<div class="container mt-4">
-		<div class="raw d-flex">
+	<div class="container mt-4 px-5">
+		<div class="raw d-flex px-5">
 			<div class="col-12 justify-content-center">
 
 				{% for message in messages %}
-
 					<div class="card-tweet col-12 px-4 py-4 mb-2">
 						<div class="tweet-header col-12 d-flex flex-row align-items-center">
 							<img class="rounded-circle me-3 profile-pic" src="/../uploads/{{ message.profile_picture }}" alt="profile-picture">
-                            <div class="d-flex flex-row align-items-center">
-                                <p class="fw-bolder content username mb-0 me-2">{{ message.username }}</p>
-                                {% if message.certified == true %}
-                                    <img class="certified" src="/../uploads/certified.png" alt="">
-                                {% endif %}
-                            </div>
+							<div class="d-flex flex-row align-items-center">
+								<p class="fw-bolder content username mb-0 me-2">{{ message.username }}</p>
+								{% if message.profile_certified == true %}
+									<img class="certified me-2" src="/../uploads/certified.png" alt="certified-logo">
+								{% endif %}
+                                <p class="mb-0 post_date">• {{ message.post_date|date("d/m/Y") }}</p>
+							</div>
 						</div>
 						<div class="col-12 px-5 ms-5">
-							<p class="lead content">{{ message.content }}</p>
+							<div class="pe-5">
+								<p class="lead content">{{ message.content }}</p>
+								{% if message.photo_id is not empty %}
+									<img class="mb-3 tweet-img" src="/../uploads/{{ message.url }}" alt="photo-tweet">
+								{% endif %}
+							</div>
 							<div class="d-flex flex-row align-items-center">
 								<i class="far fa-heart me-2"></i>
-                                <p class="likes-count mb-0">{{ message.likescounter }}</p>
+								<p class="likes-count mb-0">{{ message.likescounter }}</p>
 							</div>
 						</div>
 					</div>
-
 				{% endfor %}
+
 			</div>
 		</div>
 	</div>
