@@ -61,5 +61,7 @@ class LoginController extends AbstractController
     public function disconnection()
     {
         session_unset();
+
+        return $this->twig->render('Home/index.html.twig');
     }
 }

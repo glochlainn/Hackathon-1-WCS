@@ -27,7 +27,10 @@ class HomeController extends AbstractController
         $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
 
-        return $this->twig->render('Home/index.html.twig', ['messages' => $messages]);
+        return $this->twig->render('Home/index.html.twig', [
+            'messages' => $messages,
+            'SESSION' => $_SESSION
+        ]);
     }
 
     public function show()
