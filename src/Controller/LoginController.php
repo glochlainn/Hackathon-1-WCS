@@ -34,10 +34,15 @@ class LoginController extends AbstractController
                     $_SESSION['login'] = $user['username'];
                     $_SESSION['profile_picture'] = $user['profile_picture'];
                     $_SESSION['profile_certified'] = $user['profile_certified'];
+
+                    return $this->twig->render('Home/index.html.twig');
                 }
             }
         }
-        return $this->twig->render('Login/connection.html.twig');
+        return $this->twig->render('Login/connection.html.twig', [
+            'login' => $login,
+            'errors' => $errors
+        ]);
     }
 
     public function validateInput(string $login, array $errors)
