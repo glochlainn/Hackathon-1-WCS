@@ -41,12 +41,12 @@ h1 {
     margin-top: 3px;
 }
 
-.fa-heart {
+.fa-star {
     color: var(--secondary-color);
     cursor: pointer;
 }
 
-.fa-heart:hover {
+.fa-star:hover {
     font-weight: 900;
 }
 
