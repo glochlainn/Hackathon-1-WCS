@@ -1,46 +1,3 @@
-<<<<<<< HEAD
-﻿
-CREATE TABLE `user` (
-    `id` INT,
-    `username` VARCHAR(50),
-    `profile_picture` VARCHAR(255),
-    `profile_certified` BOOL,
-    PRIMARY KEY (
-        `id`
-    )
-);
-
-CREATE TABLE `message` (
-    `id` INT,
-    `content` TEXT,
-    `post_date` DATE,
-    `user_id` INT,
-    `photo_id` INT,
-    PRIMARY KEY (
-        `id`
-    )
-);
-
-CREATE TABLE `photo` (
-    `id` INT,
-    `name` VARCHAR(255),
-    `url` VARCHAR(255),
-    `description` TEXT,
-    `user_id` INT,
-    PRIMARY KEY (
-        `id`
-    )
-);
-
-ALTER TABLE `message` ADD CONSTRAINT `fk_message_user_id` FOREIGN KEY(`user_id`)
-REFERENCES `user` (`id`);
-
-ALTER TABLE `message` ADD CONSTRAINT `fk_message_photo_id` FOREIGN KEY(`photo_id`)
-REFERENCES `photo` (`id`);
-
-ALTER TABLE `photo` ADD CONSTRAINT `fk_photo_user_id` FOREIGN KEY(`user_id`)
-REFERENCES `user` (`id`);
-=======
 CREATE TABLE user (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50),
@@ -67,7 +24,9 @@ INSERT INTO user (username, profile_picture, profile_certified) VALUES
 ('Geth', 'geth.jpeg', 0),
 ('Robot', 'robot.jpeg', 0),
 ('O-Mars-y', 'o-mars-y.jpeg', 0),
-('Matt Damon', 'matt_damon.jpg', 1);
+('Matt Damon', 'matt_damon.jpg', 1),
+('APOD', 'apod.png', 1),
+('spaceX', 'spacex.png', 1);
 
 CREATE TABLE message (
     id INT NOT NULL AUTO_INCREMENT,
@@ -106,4 +65,3 @@ REFERENCES photo (id);
 
 ALTER TABLE photo ADD CONSTRAINT fk_photo_user_id FOREIGN KEY(user_id)
 REFERENCES user (id);
->>>>>>> dev

@@ -57,8 +57,10 @@ class CertifiedManager extends AbstractManager
         }
 
         //récuperer le photo_id
-        $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " WHERE user_id=:user_id");
+        $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " 
+        WHERE user_id=:user_id AND name=:name");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $apod['title'], \PDO::PARAM_STR);
         $statement->execute();
 
         $photoId = $statement->fetch();
@@ -68,7 +70,7 @@ class CertifiedManager extends AbstractManager
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
 
-        $photo = $statement->fetch();
+        $photo = $statement->fetchAll();
 
         if ($photo != false) {
             $messagePresent = in_array($photoId['id'], $photo);
@@ -89,23 +91,21 @@ class CertifiedManager extends AbstractManager
         }
     }
 
-   /* public function apod(): void
+    public function spacex(): void
     {
-        $username = "APOD";
-        $present = 0;
-        $messagePresent = 0;
+        $username = "spacex";
+        $spacexPresent = 0;
+        $spacexMessagePresent = 0;
         $date = new DateTime('now');
         $date = $date->format("Y-m-d H:i:s");
-        var_dump($date);
 
         //récupérer les données de l'API
-        $requestManager = new RequestManager;
-        $apod = [];
+        $requestManager = new RequestManager();
+        $spacex = [];
 
-        $pathToApi = "https://api.nasa.gov/planetary/apod?api_key=py0aw8fbod4CL9qIJywHUoxTYgVcBoWvsK4v16QN";
+        $pathToApi = "https://api.spacexdata.com/v4/rockets";
 
-        $apod = $requestManager->request($pathToApi);
-        var_dump($apod);
+        $spacex = $requestManager->request($pathToApi);
 
         //récuperer l'user user_id
         $statement = $this->pdo->prepare("SELECT id FROM " . static::USER_TABLE . " WHERE username=:username");
@@ -113,29 +113,32 @@ class CertifiedManager extends AbstractManager
         $statement->execute();
 
         $userId = $statement->fetch();
-        var_dump($userId);
 
-        //Si $apod[title] n'existe pas en table photo
+        //Si $spacex['id']['name'] n'existe pas en table photo
         $statement = $this->pdo->prepare("SELECT name FROM " . static::PHOTO_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
 
         $title = $statement->fetch();
-        var_dump($title);
-        if ($title != false) {
-            $present = in_array($apod['title'], $title);
-        }
-        var_dump($present);
-        if ($present === 0) {
-            //insérer l'image en BDD
-            $statement = $this->pdo->prepare("INSERT INTO " . self::PHOTO_TABLE . "
-            (`name`, `url`, `user_id`)
-            VALUES (:name, :url, :user_id)");
-            $statement->bindValue('name', $apod['title'], \PDO::PARAM_STR);
-            $statement->bindValue('url', $apod['url'], \PDO::PARAM_STR);
-            $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_STR);
 
-            $statement->execute();
+        if ($title != false) {
+            for ($i = 0; $i < count($spacex); $i++) {
+                $spacexPresent = in_array($spacex[$i]['name'], $title);
+            }
+        }
+
+        for ($i = 0; $i < count($spacex); $i++) {
+            if ($spacexPresent === 0) {
+                //insérer l'image en BDD
+                $statement = $this->pdo->prepare("INSERT INTO " . self::PHOTO_TABLE . "
+                (`name`, `url`, `user_id`)
+                VALUES (:name, :url, :user_id)");
+                $statement->bindValue('name', $spacex[$i]['name'], \PDO::PARAM_STR);
+                $statement->bindValue('url', $spacex[$i]['flickr_images']['0'], \PDO::PARAM_STR);
+                $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_STR);
+
+                $statement->execute();
+            }
         }
 
         //récuperer le photo_id
@@ -143,32 +146,57 @@ class CertifiedManager extends AbstractManager
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_STR);
         $statement->execute();
 
-        $photoId = $statement->fetch();
+        $photoId = $statement->fetchAll(\PDO::FETCH_ASSOC);
         var_dump($photoId);
 
-        //Si $apod[title] n'existe pas en table message
+        //Si $spacex[name] n'existe pas en table message
         $statement = $this->pdo->prepare("SELECT photo_id FROM " . static::MESSAGE_TABLE . " WHERE user_id=:user_id");
         $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
         $statement->execute();
 
         $photo = $statement->fetch();
         var_dump($photo);
-        if ($photo != false) {
-            $messagePresent = in_array($photoId['id'], $photo);
-        }
 
-        if ($messagePresent === 0) {
-            //insérer le message en BDD
-            $statement = $this->pdo->prepare("INSERT INTO " . self::MESSAGE_TABLE . "
-            (`content`, `post_date`, `user_id`, `photo_id`)
-            VALUES (:content, :post_date, :user_id, :photo_id)");
-            $statement->bindValue('content', $apod['explanation'], \PDO::PARAM_STR);
-            $statement->bindValue('post_date', $date, \PDO::PARAM_STR);
-            $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_STR);
-            $statement->bindValue('photo_id', $photoId['id'], \PDO::PARAM_STR);
+        for ($i = 0; $i < count($spacex); $i++) {
+            if ($photo === false) {
+                $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . " 
+                WHERE user_id=:user_id AND name=:name");
+                $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
+                $statement->bindValue('name', $spacex[$i]['name'], \PDO::PARAM_STR);
+                $statement->execute();
 
-            $statement->execute();
+                $photoIdName = $statement->fetch();
+                $statement = $this->pdo->prepare("INSERT INTO " . self::MESSAGE_TABLE . "
+                (`content`, `post_date`, `user_id`, `photo_id`)
+                VALUES (:content, :post_date, :user_id, :photo_id)");
+                $statement->bindValue('content', $spacex[$i]['description'], \PDO::PARAM_STR);
+                $statement->bindValue('post_date', $date, \PDO::PARAM_STR);
+                $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
+                $statement->bindValue('photo_id', $photoIdName['id'], \PDO::PARAM_INT);
+
+                $statement->execute();
+            }
+
+            foreach ($photo as $picture) {
+                if (!in_array($picture, $photoId[$i])) {
+                    $statement = $this->pdo->prepare("SELECT id FROM " . static::PHOTO_TABLE . "
+                    WHERE user_id=:user_id AND name=:name");
+                    $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
+                    $statement->bindValue('name', $spacex[$i]['name'], \PDO::PARAM_STR);
+                    $statement->execute();
+                    $photoIdName = $statement->fetch();
+                    var_dump($photoIdName);
+                    $statement = $this->pdo->prepare("INSERT INTO " . self::MESSAGE_TABLE . "
+                    (`content`, `post_date`, `user_id`, `photo_id`)
+                    VALUES (:content, :post_date, :user_id, :photo_id)");
+                    $statement->bindValue('content', $spacex[$i]['description'], \PDO::PARAM_STR);
+                    $statement->bindValue('post_date', $date, \PDO::PARAM_STR);
+                    $statement->bindValue('user_id', $userId['id'], \PDO::PARAM_INT);
+                    $statement->bindValue('photo_id', $photoIdName['id'], \PDO::PARAM_INT);
+
+                    $statement->execute();
+                }
+            }
         }
-        var_dump($messagePresent);
-    } */
+    }
 }
