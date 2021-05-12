@@ -64,18 +64,26 @@ class HomeController extends AbstractController
         $message = $messageManager->selectOneById($id);
 
         $userMessageManager = new UserMessageManager();
-        $userlike = $userMessageManager->selectOne($id, $_SESSION['user_id']);
 
-        if ($userlike['user_like'] == 1) {
-            $message["likescounter"] -= 1;
-            $messageManager->updateLikescounter($id, $message["likescounter"]);
+        $userlike = $userMessageManager->selectOne($id, $_SESSION['id']);
+
+        if (empty($userlike)) {
             $userMessageManager = new UserMessageManager();
-            $userlike = $userMessageManager->updateUserlike($id, $message['user_id'], false);
-        } elseif ($userlike['user_like'] == 0) {
+            $userlike = $userMessageManager->insert($id, $_SESSION['id'], true);
             $message["likescounter"] += 1;
             $messageManager->updateLikescounter($id, $message["likescounter"]);
-            $userMessageManager = new UserMessageManager();
-            $userlike = $userMessageManager->updateUserlike($id, $message['user_id'], true);
+        } else {
+            if ($userlike['user_like'] == 1) {
+                $message["likescounter"] -= 1;
+                $messageManager->updateLikescounter($id, $message["likescounter"]);
+                $userMessageManager = new UserMessageManager();
+                $userlike = $userMessageManager->updateUserlike($id, $_SESSION['id'], false);
+            } elseif ($userlike['user_like'] == 0) {
+                $message["likescounter"] += 1;
+                $messageManager->updateLikescounter($id, $message["likescounter"]);
+                $userMessageManager = new UserMessageManager();
+                $userlike = $userMessageManager->updateUserlike($id, $_SESSION['id'], true);
+            }
         }
         header("Location: /Home/index");
     }
