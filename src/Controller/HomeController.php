@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use Amp\Success;
 use App\Model\MessageManager;
 use App\Model\UserManager;
 use App\Model\UserMessageManager;
@@ -27,9 +28,13 @@ class HomeController extends AbstractController
     {
         $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
+        $marser = $this->marser();
 
         return $this->twig->render('Home/index.html.twig', [
             'messages' => $messages,
+            'success' => $marser['success'],
+            'data' => $marser['data'],
+            'errors' => $marser['errors'],
             'SESSION' => $_SESSION
         ]);
     }
@@ -53,9 +58,46 @@ class HomeController extends AbstractController
             $user = null;
         }
 
-        return $this->twig->render('Home/show.html.twig', ['userMessages' => $userMessages,
-                                                            'user' => $user,
-                                                            'error' => $error]);
+        return $this->twig->render('Home/show.html.twig', [
+            'userMessages' => $userMessages,
+            'user' => $user,
+            'error' => $error
+        ]);
+    }
+    private const TEXTLENGTH = 280;
+    public function marser()
+    {
+        $message = '';
+        $data = [];
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = array_map('trim', $_POST);
+
+            if (empty($data['message'])) {
+                $errors[] = 'Un message est obligatoire';
+            }
+            $errors = array_merge($errors, $this->validate($data));
+            if (empty($errors)) {
+                $message = 'Votre message a bien été envoyé';
+                $data = null;
+            }
+        }
+
+        $marser = [
+            'success' => $message,
+            'data' => $data,
+            'errors' => $errors,
+        ];
+        return $marser;
+    }
+    private function validate(array $data): array
+    {
+        $errors = [];
+        if (strlen($data['message']) > self::TEXTLENGTH) {
+            $errors[] = 'Le message doit faire moins de ' . self::TEXTLENGTH . ' caractères';
+        }
+        return $errors;
     }
 
     public function add(int $id)
