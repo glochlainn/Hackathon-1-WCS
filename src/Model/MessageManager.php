@@ -53,4 +53,14 @@ class MessageManager extends AbstractManager
         $statement->execute();
         return $statement->fetchAll();
     }
+
+    public function updateLikescounter(int $idMessage, int $likescounter)
+    {
+        $query = "UPDATE " . self::TABLE . " SET likescounter = :likescounter WHERE id=:idMessage";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('idMessage', $idMessage, \PDO::PARAM_INT);
+        $statement->bindValue('likescounter', $likescounter, \PDO::PARAM_INT);
+
+        $statement->execute();
+    }
 }

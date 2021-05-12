@@ -12,6 +12,7 @@ namespace App\Controller;
 use Amp\Success;
 use App\Model\MessageManager;
 use App\Model\UserManager;
+use App\Model\UserMessageManager;
 
 class HomeController extends AbstractController
 {
@@ -100,5 +101,36 @@ class HomeController extends AbstractController
             $errors[] = 'Le message doit faire moins de ' . self::TEXTLENGTH . ' caractères';
         }
         return $errors;
+    }
+
+    public function add(int $id)
+    {
+        $messageManager = new MessageManager();
+        $message = $messageManager->selectOneById($id);
+
+        if (!empty($_SESSION)) {
+            $userMessageManager = new UserMessageManager();
+            $userlike = $userMessageManager->selectOne($id, $_SESSION['id']);
+
+            if (empty($userlike)) {
+                $userMessageManager = new UserMessageManager();
+                $userlike = $userMessageManager->insert($id, $_SESSION['id'], true);
+                $message["likescounter"] += 1;
+                $messageManager->updateLikescounter($id, $message["likescounter"]);
+            } else {
+                if ($userlike['user_like'] == 1) {
+                    $message["likescounter"] -= 1;
+                    $messageManager->updateLikescounter($id, $message["likescounter"]);
+                    $userMessageManager = new UserMessageManager();
+                    $userlike = $userMessageManager->updateUserlike($id, $_SESSION['id'], false);
+                } elseif ($userlike['user_like'] == 0) {
+                    $message["likescounter"] += 1;
+                    $messageManager->updateLikescounter($id, $message["likescounter"]);
+                    $userMessageManager = new UserMessageManager();
+                    $userlike = $userMessageManager->updateUserlike($id, $_SESSION['id'], true);
+                }
+            }
+        }
+        header("Location: /Home/index");
     }
 }

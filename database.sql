@@ -69,3 +69,12 @@ REFERENCES photo (id);
 
 ALTER TABLE photo ADD CONSTRAINT fk_photo_user_id FOREIGN KEY(user_id)
 REFERENCES user (id);
+
+
+CREATE TABLE user_message (
+user_id INT,
+message_id INT,
+user_like BOOL,
+CONSTRAINT C13 PRIMARY KEY (user_id, message_id),
+CONSTRAINT C14 FOREIGN KEY (user_id) REFERENCES user(id),
+CONSTRAINT C15 FOREIGN KEY (message_id) REFERENCES message(id));

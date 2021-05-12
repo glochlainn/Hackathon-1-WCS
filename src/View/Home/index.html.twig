@@ -1,10 +1,15 @@
 {% extends 'layout.html.twig' %}
 
 {% block stylesheet %}
-	<link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+{% endblock %}
+
+{% block marser_block %}
+    {% include "Components/_marser.html.twig" %}
 {% endblock %}
 
 {% block content %}
+
 	<div class="container mt-4 px-5">
 		<div class="raw d-flex px-5">
 			<div class="col-12 justify-content-center">
