@@ -8,7 +8,7 @@ class MessageManager extends AbstractManager
 
 
 
-    public function insert(array $message)
+    public function insert(array $message, $photoId = null)
     {
         $date = date('Y-m-d H:i:s');
         $query = "INSERT INTO " . self::TABLE . " (`content`, `post_date`, `user_id`, `photo_id`)
@@ -18,7 +18,7 @@ class MessageManager extends AbstractManager
         $statement->bindValue('content', $message['content'], \PDO::PARAM_STR);
         $statement->bindValue('post_date', $date, \PDO::PARAM_STR);
         $statement->bindValue('user_id', $message['user_id'], \PDO::PARAM_INT);
-        $statement->bindValue('photo_id', $message['photo_id'], \PDO::PARAM_INT);
+        $statement->bindValue('photo_id', $photoId, \PDO::PARAM_INT);
 
         $statement->execute();
     }
