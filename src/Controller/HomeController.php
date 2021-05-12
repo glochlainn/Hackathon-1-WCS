@@ -168,13 +168,13 @@ class HomeController extends AbstractController
 
     public function add(int $id)
     {
+
         $messageManager = new MessageManager();
         $message = $messageManager->selectOneById($id);
 
         if (!empty($_SESSION)) {
             $userMessageManager = new UserMessageManager();
             $userlike = $userMessageManager->selectOne($id, $_SESSION['id']);
-
             if (empty($userlike)) {
                 $userMessageManager = new UserMessageManager();
                 $userlike = $userMessageManager->insert($id, $_SESSION['id'], true);
@@ -194,7 +194,6 @@ class HomeController extends AbstractController
                 }
             }
         }
-
         header("Location: /Home/index");
     }
 }
