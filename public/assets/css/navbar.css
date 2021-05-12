@@ -3,6 +3,11 @@
     background-color: var(--secondary-color) !important;
 }
 
+.navbar-brand {
+    font-family: var(--title-font);
+    font-weight: 900;
+}
+
 .nav-link {
     color: var(--light-color);
     font-style: italic;
