@@ -24,7 +24,9 @@ INSERT INTO user (username, profile_picture, profile_certified) VALUES
 ('Geth', 'geth.jpeg', 0),
 ('Robot', 'robot.jpeg', 0),
 ('O-Mars-y', 'o-mars-y.jpeg', 0),
-('Matt Damon', 'matt_damon.jpg', 1);
+('Matt Damon', 'matt_damon.jpg', 1),
+('APOD', 'apod.png', 1),
+('spaceX', 'spacex.png', 1);
 
 CREATE TABLE message (
     id INT NOT NULL AUTO_INCREMENT,
@@ -120,3 +122,12 @@ REFERENCES photo (id);
 
 ALTER TABLE photo ADD CONSTRAINT fk_photo_user_id FOREIGN KEY(user_id)
 REFERENCES user (id);
+
+
+CREATE TABLE user_message (
+user_id INT,
+message_id INT,
+user_like BOOL,
+CONSTRAINT C13 PRIMARY KEY (user_id, message_id),
+CONSTRAINT C14 FOREIGN KEY (user_id) REFERENCES user(id),
+CONSTRAINT C15 FOREIGN KEY (message_id) REFERENCES message(id));

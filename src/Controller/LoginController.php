@@ -31,13 +31,19 @@ class LoginController extends AbstractController
                 $user = $userManager->selectOneByUsername($login);
 
                 if ($user && $user['username'] === $login) {
+                    $_SESSION['id'] = $user['id'];
                     $_SESSION['login'] = $user['username'];
                     $_SESSION['profile_picture'] = $user['profile_picture'];
                     $_SESSION['profile_certified'] = $user['profile_certified'];
+
+                    return $this->twig->render('Home/index.html.twig');
                 }
             }
         }
-        return $this->twig->render('Login/connection.html.twig');
+        return $this->twig->render('Login/connection.html.twig', [
+            'login' => $login,
+            'errors' => $errors
+        ]);
     }
 
     public function validateInput(string $login, array $errors)
@@ -51,5 +57,12 @@ class LoginController extends AbstractController
         }
 
         return $errors;
+    }
+
+    public function disconnection()
+    {
+        session_unset();
+
+        return $this->twig->render('Home/index.html.twig');
     }
 }
