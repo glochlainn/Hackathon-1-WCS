@@ -21,3 +21,7 @@ body {
   font-family: var(--text-font);
   scroll-behavior: smooth;
 }
+
+.empty:empty {
+  display: none;
+}
