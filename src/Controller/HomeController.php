@@ -31,9 +31,8 @@ class HomeController extends AbstractController
 
     public function index()
     {
-        /*$requester = new CertifiedManager();
+        $requester = new CertifiedManager();
         $apod = $requester->apod();
-        $spacex = $requester->spacex();*/
 
         $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageUsers('post_date', 'DESC');
@@ -41,8 +40,7 @@ class HomeController extends AbstractController
 
 
         return $this->twig->render('Home/index.html.twig', [
-            /*'apod' => $apod,
-            'spacex' => $spacex,*/
+            'apod' => $apod,
             'messages' => $messages,
             'success' => $marser['success'],
             'data' => $marser['data'],
