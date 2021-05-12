@@ -24,7 +24,9 @@
 						<div class="col-12 px-5 ms-5">
 							<p class="lead content">{{ message.content }}</p>
 							<div class="d-flex flex-row align-items-center">
-								<i class="far fa-heart me-2"></i>
+                                <a href="/home/add/{{message.message_id}}">
+								    <i class="far fa-heart me-2"></i>
+                                </a>
                                 <p class="likes-count mb-0">{{ message.likescounter }}</p>
 							</div>
 						</div>
