@@ -1,0 +1,54 @@
+@import url('style.css');
+.navbar {
+    background-color: var(--secondary-color) !important;
+}
+
+.navbar-brand {
+    font-family: var(--title-font);
+    font-weight: 900;
+}
+
+.nav-link {
+    color: var(--light-color);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.search-form,
+.btn-search,
+.form-control {
+    background-color: var(--primary-color);
+    border: var(--primary-color) solid 1px;
+    color: var(--secondary-color);
+    border-radius: 16px;
+}
+
+.form-control:focus {
+    background-color: var(--primary-color);
+    border: var(--primary-color) solid 1px;
+    color: var(--secondary-color);
+    border-radius: 16px;
+    box-shadow: none;
+}
+
+.btn-search:hover {
+    color: var(--light-color);
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.username-nav {
+    color: var(--light-color);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.pic-nav {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+}
