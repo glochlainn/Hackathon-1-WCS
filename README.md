@@ -1,4 +1,4 @@
-# Twitter for MArs
+# Twitter for Mars
 
 ## Description
 
